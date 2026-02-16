@@ -24,23 +24,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var diceSixVisibility: UIView!
     @IBOutlet weak var diceImageViewSix: UIImageView!
     
+    let diceArray = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
     
-    @IBAction func diceAmountSelected(_ sender: UIButton) {
-        
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
     @IBAction func rollDiceButtonPressed(_ sender: UIButton) {
         
-        
-        let diceArray = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix")]
+        let biasedDiceArray = [#imageLiteral(resourceName: "DiceOne"), #imageLiteral(resourceName: "DiceTwo"), #imageLiteral(resourceName: "DiceThree"), #imageLiteral(resourceName: "DiceFour"), #imageLiteral(resourceName: "DiceFive"), #imageLiteral(resourceName: "DiceSix"), #imageLiteral(resourceName: "DiceSix"), #imageLiteral(resourceName: "DiceSix")]
         
         diceImageViewOne.image = diceArray[Int.random(in: 0...5)]
         diceImageViewTwo.image = diceArray[Int.random(in: 0...5)]
         diceImageViewThree.image = diceArray[Int.random(in: 0...5)]
         diceImageViewFour.image = diceArray[Int.random(in: 0...5)]
-        diceImageViewFive.image = diceArray[Int.random(in: 0...5)]
-        diceImageViewSix.image = diceArray[Int.random(in: 0...5)]
+        diceImageViewFive.image = biasedDiceArray[Int.random(in: 0...7)] //Dice is using the weighted dice
+        diceImageViewSix.image = biasedDiceArray[Int.random(in: 0...7)] //Dice is using the weighted dice
         
         //Simple animation for dice rolling
         self.diceImageViewOne.animationImages = diceArray
@@ -53,6 +52,7 @@ class ViewController: UIViewController {
         self.diceImageViewTwo.animationRepeatCount = 1
         self.diceImageViewTwo.startAnimating()
         
+        //Rolling animations for the extra dice
         self.diceImageViewThree.animationImages = diceArray
         self.diceImageViewThree.animationDuration = 0.5
         self.diceImageViewThree.animationRepeatCount = 1
@@ -72,6 +72,15 @@ class ViewController: UIViewController {
         self.diceImageViewSix.animationDuration = 0.5
         self.diceImageViewSix.animationRepeatCount = 1
         self.diceImageViewSix.startAnimating()
+    }
+    //Button to reset the dice to the first position
+    @IBAction func resetDice(_ sender: Any) {
+        diceImageViewOne.image = diceArray[0]
+        diceImageViewTwo.image = diceArray[0]
+        diceImageViewThree.image = diceArray[0]
+        diceImageViewFour.image = diceArray[0]
+        diceImageViewFive.image = diceArray[0]
+        diceImageViewSix.image = diceArray[0]
     }
 }
 
